@@ -17,7 +17,7 @@ const AdminLogin = () => {
       setLoading(true);
 
       const response = await axios.post(
-        "http://localhost:8000/api/auth/login",
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
         {
           email,
           password,
@@ -47,7 +47,7 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center px-4">
+    <div className="min-h-screen bg-white text-white flex items-center justify-center px-4">
 
       <div className="w-full max-w-md bg-slate-900 p-8 rounded-2xl shadow-xl">
 
@@ -56,7 +56,7 @@ const AdminLogin = () => {
         </h1>
 
         <p className="text-slate-400 text-center mb-8">
-          Login to manage The Anonymous Chronicle
+          Login to manage Global Relief Help
         </p>
 
         <form

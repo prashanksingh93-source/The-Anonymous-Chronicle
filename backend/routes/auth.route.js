@@ -1,14 +1,22 @@
 const express = require("express");
 
 const {
-  registerAdmin,
   loginAdmin,
+  verifyAdmin,
+  changePassword,
 } = require("../controllers/auth.controller");
+
+const authMiddleware = require("../middleware/auth.middleware");
 
 const router = express.Router();
 
-router.post("/register", registerAdmin);
+// Admin login
 router.post("/login", loginAdmin);
 
-module.exports = router;
+// Verify admin token
+router.get("/verify", authMiddleware, verifyAdmin);
 
+// Change admin password
+router.put("/change-password", authMiddleware, changePassword);
+
+module.exports = router;

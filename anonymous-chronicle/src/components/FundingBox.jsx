@@ -5,7 +5,7 @@ import { Copy, CheckCircle, Heart } from "lucide-react";
 const FundingBox = () => {
   const [upiId, setUpiId] = useState("");
   const [businessName, setBusinessName] = useState(
-    "The Anonymous Chronicle"
+    "Global Relief Help"
   );
   const [qrImage, setQrImage] = useState("");
   const [copied, setCopied] = useState(false);
@@ -14,7 +14,7 @@ const FundingBox = () => {
   const fetchFunding = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/funding"
+        `${import.meta.env.VITE_API_URL}/api/funding`
       );
 
       const funding = response.data.funding;
@@ -63,7 +63,7 @@ const FundingBox = () => {
   if (loading) {
     return (
       <section className="max-w-md mx-auto mt-12 px-4 pb-12">
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 text-center">
+        <div className="bg-[oklch(56%_0.021_213.5)] border border-pink-100 rounded-2xl p-6 text-center">
           <p className="text-slate-400">
             Loading payment information...
           </p>
@@ -74,7 +74,7 @@ const FundingBox = () => {
 
   return (
     <section className="max-w-md mx-auto mt-12 px-4 pb-12">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 text-center">
+      <div className="bg-[oklch(56%_0.021_213.5)] border border-[oklch(56%_0.021_213.5)] rounded-2xl p-6 text-center">
 
         {/* Icon */}
         <div className="flex justify-center mb-4">
@@ -87,11 +87,11 @@ const FundingBox = () => {
         </div>
 
         {/* Title */}
-        <h2 className="text-2xl font-bold text-white">
-          Support {businessName}
+        <h2 className="text-2xl font-bold text-gray-100">
+          Support Global Relief Help
         </h2>
 
-        <p className="text-slate-400 mt-2 mb-6">
+        <p className="text-green-400 mt-2 mb-6">
           Your support helps keep the Chronicle running.
         </p>
 
@@ -122,19 +122,19 @@ const FundingBox = () => {
         {upiId && (
           <div className="mt-6">
 
-            <p className="text-sm text-slate-500 mb-2">
+            <p className="text-sm text-green-500 mb-2">
               Business UPI ID
             </p>
 
             <div className="flex gap-2">
 
-              <div className="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-3 text-sm text-slate-300 break-all">
+              <div className="flex-1 bg-gray-600 border border-blue-400 rounded-lg px-3 py-3 text-sm text-slate-300 break-all">
                 {upiId}
               </div>
 
               <button
                 onClick={copyUPI}
-                className="p-3 bg-slate-800 border border-slate-700 rounded-lg hover:bg-slate-700"
+                className="p-3 bg-gray-600 border border-blue-600 rounded-lg hover:bg-slate-700"
                 title="Copy UPI ID"
               >
                 {copied ? (

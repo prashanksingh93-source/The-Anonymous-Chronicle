@@ -11,14 +11,19 @@ const authMiddleware = (req, res, next) => {
       });
     }
 
-    const token = authHeader.startsWith("Bearer ")
-      ? authHeader.split(" ")[1]
-      : null;
+    if (!authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid authorization format",
+      });
+    }
+
+    const token = authHeader.split(" ")[1];
 
     if (!token) {
       return res.status(401).json({
         success: false,
-        message: "Invalid authorization format",
+        message: "Token is missing",
       });
     }
 
@@ -31,7 +36,10 @@ const authMiddleware = (req, res, next) => {
 
     next();
   } catch (error) {
-    console.error("Auth middleware error:", error.message);
+    console.error(
+      "Auth middleware error:",
+      error.message
+    );
 
     return res.status(401).json({
       success: false,
@@ -41,4 +49,3 @@ const authMiddleware = (req, res, next) => {
 };
 
 module.exports = authMiddleware;
-

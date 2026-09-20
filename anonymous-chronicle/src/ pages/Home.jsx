@@ -9,7 +9,7 @@ const Home = () => {
   const fetchPosts = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/posts"
+        `${import.meta.env.VITE_API_URL}/api/posts`
       );
 
       setPosts(response.data.posts);
@@ -25,16 +25,16 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
-      <header className="border-b border-slate-800 px-6 py-5">
+    <div className="min-h-screen bg-[oklch(96%_0.002_17.2)] text-black">
+      <header className="border-b bg-[oklch(70.5%_0.015_286.067)] border-gray-300 px-6 py-5">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-emerald-400">
-            The Anonymous Chronicle
+          <h1 className="text-2xl font-bold text-black">
+            Global Relief Help
           </h1>
 
           <a
             href="/admin/login"
-            className="px-4 py-2 bg-slate-800 rounded-lg hover:bg-slate-700"
+            className="px-4 py-2 bg-gray-500 rounded-lg hover:bg-slate-700"
           >
             Admin
           </a>
@@ -43,11 +43,11 @@ const Home = () => {
 
       <main className="max-w-5xl mx-auto px-6 py-10">
         <h2 className="text-4xl font-bold mb-3">
-          Anonymous Stories
+          Stories of Hope
         </h2>
 
         <p className="text-slate-400 mb-10">
-          Stories, thoughts and experiences shared anonymously.
+          Real stories. Real people. A chance to make a difference.
         </p>
 
         {loading ? (
@@ -67,9 +67,9 @@ const Home = () => {
             {posts.map((post) => (
               <article
                 key={post._id}
-                className="bg-slate-900 border border-slate-800 rounded-2xl p-6"
+                className="bg-[oklch(87.2%_0.007_219.6)] border border-[oklch(88%_0.011_106.6)] rounded-2xl p-6"
               >
-                <h3 className="text-2xl font-bold text-emerald-400 mb-2">
+                <h3 className="text-2xl font-bold text-[oklch(55.4%_0.046_257.417)] mb-2">
                   {post.title}
                 </h3>
 
@@ -77,7 +77,7 @@ const Home = () => {
                   {new Date(post.createdAt).toLocaleDateString()}
                 </p>
 
-                <p className="text-slate-300 leading-7 whitespace-pre-wrap">
+                <p className="text-[oklch(37.2%_0.044_257.287)] leading-7 whitespace-pre-wrap">
                   {post.content}
                 </p>
               </article>
