@@ -13,10 +13,14 @@ const app = express();
 
 const PORT = process.env.PORT || 8000;
 
+// -----------------------------
+// Allowed Frontend Origins
+// -----------------------------
+
 const allowedOrigins = [
   "http://localhost:5173",
-  process.env.FRONTEND_URL,
-].filter(Boolean);
+  "https://the-anonymous-chronicle-3mr3.vercel.app",
+];
 
 // -----------------------------
 // CORS
@@ -25,8 +29,7 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests without an origin
-      // such as Postman or server-to-server requests
+      // Allow Postman / server-to-server requests
       if (!origin) {
         return callback(null, true);
       }
@@ -35,21 +38,28 @@ app.use(
         return callback(null, true);
       }
 
-      return callback(
-        new Error("Not allowed by CORS")
-      );
+      console.log("Blocked CORS origin:", origin);
+
+      return callback(new Error("Not allowed by CORS"));
     },
+
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+    ],
   })
 );
 
 // -----------------------------
-// Body parser
+// Body Parser
 // -----------------------------
 
 app.use(express.json({ limit: "5mb" }));
 
 // -----------------------------
-// Health check
+// Health Check
 // -----------------------------
 
 app.get("/", (req, res) => {
@@ -64,11 +74,13 @@ app.get("/", (req, res) => {
 // -----------------------------
 
 app.use("/api/auth", authRoutes);
+
 app.use("/api/posts", postRoutes);
+
 app.use("/api/funding", fundingRoutes);
 
 // -----------------------------
-// MongoDB
+// MongoDB Connection
 // -----------------------------
 
 mongoose
@@ -77,14 +89,9 @@ mongoose
     console.log("MongoDB connected");
 
     app.listen(PORT, () => {
-      console.log(
-        `Server running on port ${PORT}`
-      );
+      console.log(`Server running on port ${PORT}`);
     });
   })
   .catch((error) => {
-    console.error(
-      "MongoDB connection error:",
-      error
-    );
+    console.error("MongoDB connection error:", error);
   });
