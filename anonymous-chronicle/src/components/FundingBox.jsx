@@ -92,7 +92,7 @@ const FundingBox = () => {
         </h2>
 
         <p className="text-green-400 mt-2 mb-6">
-         Your support helps <h6>Global Relief Help</h6> care for all living beings in need
+         Your support helps Global Relief Help care for all living beings in need
         </p>
 
         {/* QR */}
